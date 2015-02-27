@@ -32,7 +32,7 @@ $app->post('/reg', function () use ($app) {
     }
 });
 
-$app->post('/auth', function () use ($app){
+$app->post('/user/auth', function () use ($app){
     try {
         $request = $app->request();
         $body = $request->getBody();
