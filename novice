@@ -45,7 +45,17 @@ class Novice {
     function runMigrations()
     {
         //$files = glob(MIGRATIONS_PATH.'/*.php');
-        $arr_file = array("CityMigration","UserMigration","PerformerMigration");
+        $arr_file = array(
+            "CityMigration",
+            "CategoryMigration",
+            "SubCategoryMigration",
+            "UserMigration",
+            "CustomerMigration",
+            "BidMigration",
+            "PerformerMigration",
+            "PerfomersBidStackMigration",
+            "CommentMigration"
+        );
         foreach ($arr_file as $a_file){
           $files[] = MIGRATIONS_PATH."/".$a_file.'.php';
         }
