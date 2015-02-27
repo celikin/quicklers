@@ -50,10 +50,10 @@ class Novice {
             "CategoryMigration",
             "SubCategoryMigration",
             "UserMigration",
+            "PerformerMigration",
             "CustomerMigration",
             "BidMigration",
-            "PerformerMigration",
-            "PerfomersBidStackMigration",
+            "PerformersBidStackMigration",
             "CommentMigration"
         );
         foreach ($arr_file as $a_file){

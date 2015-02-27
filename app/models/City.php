@@ -8,6 +8,10 @@ class City extends Eloquent {
     {
         return $this->hasMany('User');
     }
+    public function bid()
+    {
+        return $this->hasMany('Bid');
+    }
 	/**
 	 * The database table used by the model.
 	 *

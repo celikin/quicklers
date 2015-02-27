@@ -1,19 +1,19 @@
 <?php
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Comment extends Eloquent {
-    public function user()
-    {
-        return $this->hasOne('User');
-    }
+class PerformersBidStack extends Eloquent {
     public function bid()
     {
         return $this->hasOne('Bid');
+    }
+    public function performer()
+    {
+        return $this->hasOne('Performer');
     }
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'comments';
+    protected $table = 'performersbidsstacks';
 }

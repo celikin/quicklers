@@ -12,6 +12,7 @@ class CategoryMigration {
         Capsule::schema()->create('categories', function($table) {
             $table->increments('id');
             $table->string('alias');
+            $table->string('desc');
             $table->timestamps();
         });
     }

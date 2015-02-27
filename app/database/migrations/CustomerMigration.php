@@ -8,10 +8,11 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class CustomerMigration {
     function run()
     {
-        Capsule::schema()->dropIfExists('costumers');
-        Capsule::schema()->create('costumers', function($table) {
+        Capsule::schema()->dropIfExists('customers');
+        Capsule::schema()->create('customers', function($table) {
             $table->increments('id');
-            $table->increments('user_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

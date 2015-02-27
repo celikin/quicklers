@@ -7,6 +7,14 @@ class Performer extends Eloquent {
     {
         return $this->hasOne('User');
     }
+    public function bid()
+    {
+        return $this->hasMany('Bid');
+    }
+    public function performersBidStack()
+    {
+        return $this->hasMany('PerformersBidStack');
+    }
 	/**
 	 * The database table used by the model.
 	 *
