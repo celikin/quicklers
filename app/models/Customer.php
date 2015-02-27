@@ -8,7 +8,7 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Customers extends Eloquent {
+class Customer extends Eloquent {
 
     /**
      * The database table used by the model.
