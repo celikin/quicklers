@@ -12,6 +12,7 @@ class CityMigration {
         Capsule::schema()->create('cities', function($table) {
             $table->increments('id');
             $table->string('alias');
+            $table->timestamps();
         });
     }
 }

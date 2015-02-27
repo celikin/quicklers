@@ -1,5 +1,6 @@
 <?php
 
+
 class CitySeed {
 
     function run()
