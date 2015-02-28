@@ -131,7 +131,7 @@ $app->post('/bid/add', function () use ($app) {
         $bid->save();
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
-        echo json_encode(array('status' => 'ok'));
+        echo json_encode(array('status' => true, 'bid' => $bid));
     } catch (Exception $e) {
         print_r($input);
         $app->response()->status(400);
