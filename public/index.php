@@ -254,4 +254,25 @@ $app->get('bid/performers', function() {
     }
 });
 
+// Сделать Пользователя Исполнителем
+// input: user_id
+$app->post('/performer/add', function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+
+        $performer = new Performer;
+        $performer->user_id = (string)$input->user_id;
+        $performer->save();
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => true));
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+    }
+});
+
+
 $app->run();
