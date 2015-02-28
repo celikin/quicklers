@@ -203,14 +203,14 @@ $app->post('/bid/add', function () use ($app) {
 //Вывод заявок
 //input: count
 $app->get('/bids/:count', function($count) {
-    $bids = Bid::all()->sortBy('created_at')->reverse()->take($count);
+    $bids = Bid::all()->sortBy('created_at')->reverse()->where('status','1')->take($count);
     echo json_encode($bids);
 
 });
 //Вывод заявки по ИД
 //input: id
 $app->get('/bid/:id', function($id) {
-    $bids = Bid::all()->where('id',$id);
+    $bids = Bid::where('id',$id)->first();
     echo json_encode($bids);
 
 });
