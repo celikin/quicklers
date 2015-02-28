@@ -229,7 +229,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
 
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
-        echo json_encode(array('status' => true);
+        echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
         echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
