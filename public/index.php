@@ -215,6 +215,32 @@ $app->get('/bid/:id', function($id) {
 
 });
 
+
+//__________________________________________________________________________________________________________
+
+
+
+// Сделать Пользователя Исполнителем                   ОШИБКА 500
+// input: user_id
+$app->post('/performer/add', function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+
+        $performer = new Performer;
+        $performer->user_id = (integer)$input->user_id;
+        $performer->desc = (string)$input->desc;
+        $performer->save();
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => true));
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+    }
+});
+
 // Добавление кандидата в стэк кандидатов
 // input: bid_id, user_id == performer_id, cost - цена, предлагаемая исполнителем
 $app->post('/bid/stack/performer/add',  function () use ($app) {
@@ -267,7 +293,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
     }
 });
 
-
+// НЕ ТЕСЛИТ
 //Вывод пользователя по ИД
 function PrintUser($id){
     $user = User::where('id',$id)->first();
@@ -281,26 +307,5 @@ $app->get('bid/performers', function() {
         PrintUser($uid);
     }
 });
-
-// Сделать Пользователя Исполнителем
-// input: user_id
-$app->post('/performer/add', function () use ($app) {
-    try {
-        $request = $app->request();
-        $body = $request->getBody();
-        $input = json_decode($body);
-
-        $performer = new Performer;
-        $performer->user_id = (string)$input->user_id;
-        $performer->save();
-        // return JSON-encoded response body
-        $app->response()->header('Content-Type', 'application/json');
-        echo json_encode(array('status' => true));
-    } catch (Exception $e) {
-        $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
-    }
-});
-
 
 $app->run();
