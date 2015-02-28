@@ -125,14 +125,15 @@ $app->post('/bid/add', function () use ($app) {
         $bid->desc = (string)$input->desc;
         $bid->deadline = (integer)$input->deadline;
         $bid->city_id = (integer)$input->city_id;
-        //$bid->user_id = null;
-        //$bid->performer_id = null;
+        $bid->user_id = 1;
+        $bid->performer_id = 2;
         $bid->subcategory_id = (integer)$input->subcategory_id;
         $bid->save();
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
         echo json_encode(array('status' => 'ok'));
     } catch (Exception $e) {
+        print_r($input);
         $app->response()->status(400);
         $app->response()->header('X-Status-Reason', $e->getMessage());
     }

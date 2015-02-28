@@ -38,7 +38,7 @@ class BidMigration {
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('performer_id')->unsigned();
-            $table->foreign('performer_id')->references('id')->on('subcategories');
+            $table->foreign('performer_id')->references('id')->on('performers');
             $table->integer('subcategory_id')->unsigned();
             $table->foreign('subcategory_id')->references('id')->on('subcategories');
         });

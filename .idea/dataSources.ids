@@ -1100,7 +1100,7 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="bids_subcategory_id_foreign" columns="subcategory_id" ref-table="subcategories" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="bids_city_id_foreign" columns="city_id" ref-table="cities" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="bids_performer_id_foreign" columns="performer_id" ref-table="subcategories" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="bids_performer_id_foreign" columns="performer_id" ref-table="performers" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="bids_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="comments_bid_id_foreign" table="comments" schema="" catalog="quicklers" columns="bid_id"/>
       <exported-key name="performersbidsstacks_bid_id_foreign" table="performersbidsstacks" schema="" catalog="quicklers" columns="bid_id"/>
@@ -1148,6 +1148,7 @@
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="performers_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="bids_performer_id_foreign" table="bids" schema="" catalog="quicklers" columns="performer_id"/>
       <exported-key name="performersbidsstacks_performer_id_foreign" table="performersbidsstacks" schema="" catalog="quicklers" columns="performer_id"/>
       <index name="performers_user_id_foreign" unique="false" columns="user_id"/>
     </table>
@@ -1173,7 +1174,6 @@
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="subcategories_category_id_foreign" columns="category_id" ref-table="categories" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="bids_subcategory_id_foreign" table="bids" schema="" catalog="quicklers" columns="subcategory_id"/>
-      <exported-key name="bids_performer_id_foreign" table="bids" schema="" catalog="quicklers" columns="performer_id"/>
       <index name="subcategories_category_id_foreign" unique="false" columns="category_id"/>
     </table>
     <table name="users" schema="" catalog="quicklers" type="TABLE">
