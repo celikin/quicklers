@@ -125,8 +125,8 @@ $app->post('/bid/add', function () use ($app) {
         $bid->desc = (string)$input->desc;
         $bid->deadline = (integer)$input->deadline;
         $bid->city_id = (integer)$input->city_id;
-        $bid->user_id = 1;
-        $bid->performer_id = 2;
+        $bid->user_id = null;
+        $bid->performer_id = null;
         $bid->subcategory_id = (integer)$input->subcategory_id;
         $bid->save();
         // return JSON-encoded response body
