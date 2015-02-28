@@ -31,12 +31,12 @@ class BidMigration {
             $table->increments('id');
             $table->string('title');
             $table->string('desc');
-            $table->string('deadline');
+            $table->timestamp('deadline');
             $table->timestamps();
             $table->integer('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities');
-            $table->integer('customer_id')->unsigned();
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('performer_id')->unsigned();
             $table->foreign('performer_id')->references('id')->on('subcategories');
             $table->integer('subcategory_id')->unsigned();

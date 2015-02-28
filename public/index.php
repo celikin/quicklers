@@ -113,4 +113,28 @@ $app->get('/categories', function() {
     echo json_encode($categories);
 });
 
+
+//Добавление заявки
+$app->post('/bid/add', function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+        $bid = new Bid;
+        $bid->title = (string)$input->title;
+        $bid->desc = (string)$input->desc;
+        $bid->deadline = (integer)$input->deadline;
+        $bid->city_id = (integer)$input->city_id;
+        $bid->customer_id = null;
+        $bid->performer_id = null;
+        $bid->city_id = (integer)$input->city_id;
+        $bid->save();
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => 'ok'));
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        $app->response()->header('X-Status-Reason', $e->getMessage());
+    }
+});
 $app->run();

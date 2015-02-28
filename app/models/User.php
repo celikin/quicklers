@@ -16,9 +16,9 @@ class User extends Eloquent {
     {
         return $this->hasMany('Comment');
     }
-    public function customer()
+    public function bid()
     {
-        return $this->hasOne('Customer');
+        return $this->hasMany('Bid');
     }
 	/**
 	 * The database table used by the model.

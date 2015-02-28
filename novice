@@ -51,7 +51,6 @@ class Novice {
             "SubCategoryMigration",
             "UserMigration",
             "PerformerMigration",
-            "CustomerMigration",
             "BidMigration",
             "PerformersBidStackMigration",
             "CommentMigration"
