@@ -11,9 +11,9 @@ class Bid extends Eloquent {
     {
         return $this->hasOne('City');
     }
-    public function customer()
+    public function user()
     {
-        return $this->hasOne('Customer');
+        return $this->hasOne('User');
     }
     public function performer()
     {
