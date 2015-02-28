@@ -227,7 +227,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
         $bid = Bid::where('id', $input->bid_id)->first();
         $bid->performer_id = $input->performer_id;
 //        ПО-ХОРОШЕМУ нужно добавлять еще и цену от исполнителя
-//        $bid->cost = $input->cost;
+        $bid->cost = $input->cost;
         $bid->save();
 
         // return JSON-encoded response body
@@ -238,5 +238,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
         echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
 });
+
+
 
 $app->run();
