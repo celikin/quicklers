@@ -196,4 +196,5 @@ $app->post('/bid/add', function () use ($app) {
         $app->response()->header('X-Status-Reason', $e->getMessage());
     }
 });
+
 $app->run();
