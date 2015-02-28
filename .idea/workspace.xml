@@ -4,8 +4,6 @@
     <list default="true" id="89b9c0f9-9f5a-4672-b013-54452617d0f3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/database/migrations/CommentMigration.php" afterPath="$PROJECT_DIR$/app/database/migrations/CommentMigration.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/database/migrations/CustomerMigration.php" afterPath="$PROJECT_DIR$/app/database/migrations/CustomerMigration.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/database/migrations/PerformersBidStackMigration.php" afterPath="$PROJECT_DIR$/app/database/migrations/PerformersBidStackMigration.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -75,8 +73,8 @@
       <file leaf-file-name="BidMigration.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/database/migrations/BidMigration.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.0" vertical-offset="277" max-vertical-offset="884">
-              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+            <state vertical-scroll-proportion="-15.5" vertical-offset="277" max-vertical-offset="884">
+              <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -105,8 +103,8 @@
       <file leaf-file-name="CommentMigration.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/database/migrations/CommentMigration.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5851979" vertical-offset="0" max-vertical-offset="581">
-              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.61445785" vertical-offset="0" max-vertical-offset="581">
+              <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -149,8 +147,8 @@
         <option value="$PROJECT_DIR$/novice" />
         <option value="$PROJECT_DIR$/app/database/migrations/CustomerMigration.php" />
         <option value="$PROJECT_DIR$/app/database/migrations/PerformersBidStackMigration.php" />
-        <option value="$PROJECT_DIR$/app/database/migrations/CommentMigration.php" />
         <option value="db-console:/f07ccb42/9a62703b-cd05-4dc8-b12e-4aa4fbf04b07/" />
+        <option value="$PROJECT_DIR$/app/database/migrations/CommentMigration.php" />
       </list>
     </option>
   </component>
@@ -408,7 +406,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425111023860</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Rename Comment, Customer model and migration">
+      <created>1425111933859</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1425111933859</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -826,53 +830,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="uml://DATABASE/9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.schema:quicklers">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>DATABASE</ID>
-          <OriginalElement>9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.schema:quicklers</OriginalElement>
-          <nodes>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.cities</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.customers</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.performersbidsstacks</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.comments</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.users</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.bids</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.performers</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.categories</node>
-            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.subcategories</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="0.8438368860055606" x="512.2120608023924" y="346.11147721032404" />
-          <SelectedNodes />
-          <Categories>
-            <Category>Key columns</Category>
-            <Category>Columns</Category>
-          </Categories>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/database/migrations/BidMigration.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.0" vertical-offset="277" max-vertical-offset="884">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Bid.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.69363165" vertical-offset="39" max-vertical-offset="731">
           <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="714">
-          <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -906,10 +867,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="714">
+          <caret line="20" column="38" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://DATABASE/9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.schema:quicklers">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>DATABASE</ID>
+          <OriginalElement>9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.schema:quicklers</OriginalElement>
+          <nodes>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.cities</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.customers</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.performersbidsstacks</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.comments</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.users</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.bids</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.performers</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.categories</node>
+            <node x="" y="">9a62703b-cd05-4dc8-b12e-4aa4fbf04b07.table:quicklers.subcategories</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0375347544022242" x="377.29120142920954" y="792.6288521661456" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Key columns</Category>
+            <Category>Columns</Category>
+          </Categories>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/database/migrations/BidMigration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.5" vertical-offset="277" max-vertical-offset="884">
+          <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/database/migrations/CommentMigration.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5851979" vertical-offset="0" max-vertical-offset="581">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.61445785" vertical-offset="0" max-vertical-offset="581">
+          <caret line="21" column="2" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="2" />
           <folding />
         </state>
       </provider>

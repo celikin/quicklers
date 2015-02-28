@@ -1103,6 +1103,7 @@
       <foreign-key name="bids_city_id_foreign" columns="city_id" ref-table="cities" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="bids_customer_id_foreign" columns="customer_id" ref-table="customers" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="bids_performer_id_foreign" columns="performer_id" ref-table="subcategories" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="comments_bid_id_foreign" table="comments" schema="" catalog="quicklers" columns="bid_id"/>
       <exported-key name="performersbidsstacks_bid_id_foreign" table="performersbidsstacks" schema="" catalog="quicklers" columns="bid_id"/>
       <index name="bids_city_id_foreign" unique="false" columns="city_id"/>
       <index name="bids_customer_id_foreign" unique="false" columns="customer_id"/>
@@ -1128,11 +1129,15 @@
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="desc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="rate" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="bid_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="bid_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="created_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <column name="updated_at" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="comments_user_id_foreign" columns="user_id" ref-table="users" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="comments_bid_id_foreign" columns="bid_id" ref-table="bids" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="comments_bid_id_foreign" unique="false" columns="bid_id"/>
+      <index name="comments_user_id_foreign" unique="false" columns="user_id"/>
     </table>
     <table name="customers" schema="" catalog="quicklers" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -1189,6 +1194,7 @@
       <column name="city_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="users_city_id_foreign" columns="city_id" ref-table="cities" ref-schema="" ref-catalog="quicklers" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="comments_user_id_foreign" table="comments" schema="" catalog="quicklers" columns="user_id"/>
       <exported-key name="customers_user_id_foreign" table="customers" schema="" catalog="quicklers" columns="user_id"/>
       <exported-key name="performers_user_id_foreign" table="performers" schema="" catalog="quicklers" columns="user_id"/>
       <index name="users_city_id_foreign" unique="false" columns="city_id"/>
