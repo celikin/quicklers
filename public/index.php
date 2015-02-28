@@ -268,7 +268,39 @@ $app->post('/bid/performer/add',  function () use ($app) {
 });
 
 
+//Вывод пользователя по ИД
+function PrintUser($id){
+    $user = User::where('id',$id)->first();
+    echo json_encode($user);
+}
+//Вывод кандидатов
+$app->get('bid/performers', function() {
+    $performersbidstack = PerformersBidStack::all();
+    foreach($performersbidstack as $arr) {
+        $uid = Performer::where('id', $arr->performer_id)->user_id;
+        PrintUser($uid);
+    }
+});
 
+// Сделать Пользователя Исполнителем
+// input: user_id
+$app->post('/performer/add', function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+
+        $performer = new Performer;
+        $performer->user_id = (string)$input->user_id;
+        $performer->save();
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => true));
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+    }
+});
 
 
 $app->run();
