@@ -168,7 +168,6 @@ $app->post('/category/sub/add', function () use ($app) {
 
 //Вывод категорий
 $app->get('/categories', function() {
-    //$categories = Category::all();
     $categories = Category::with('subcategory')->get();
     echo json_encode($categories);
 });
@@ -195,9 +194,16 @@ $app->post('/bid/add', function () use ($app) {
         $app->response()->header('Content-Type', 'application/json');
         echo json_encode(array('status' => true, 'bid' => $bid));
     } catch (Exception $e) {
-        print_r($input);
         $app->response()->status(400);
-        $app->response()->header('X-Status-Reason', $e->getMessage());
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
+});
+
+//Вывод заявок
+//input: count
+$app->get('/bids/:count', function($count) {
+        $bids = Bid::get()->take($count);
+        echo json_encode($bids);
+
 });
 $app->run();
