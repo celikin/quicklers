@@ -215,6 +215,7 @@ $app->get('/bid/:id', function($id) {
 
 });
 
+// НЕ РАБОТАЕТ!
 // Добавление кандидата в стэк кандидатов
 // input: bid_id, user_id == performer_id, cost - цена, предлагаемая исполнителем
 $app->post('/bid/stack/performer/add',  function () use ($app) {
@@ -224,13 +225,16 @@ $app->post('/bid/stack/performer/add',  function () use ($app) {
         $input = json_decode($body);
 
         // Проверка авторизации
-        CheckAuth($input->user_id, $input->hash);
+//        CheckAuth($input->user_id, $input->hash);
 
-        $bidstack = new PerformersBidStack();
-        $bidstack->bid_id = $input->bid_id;
-        $bidstack->performer_id = $input->user_id;
-        $bidstack->cost = $input->cost;
-        $bidstack->save();
+//        $bidstack = new PerformersBidsStack;
+//        $bidstack->cost = (integer)$input->cost;
+//        $bidstack->performer_id = (integer)$input->performer_id;
+//        $bidstack->bid_id = (integer)$input->bid_id;
+//
+//        $bidstack->save();
+
+       $performer = PerformersBidsStack::create(array('cost' => (integer)$input->cost, 'performer_id' => (integer)$input->performer_id, 'bid_id' => (integer)$input->bid_id));
 
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
@@ -241,7 +245,7 @@ $app->post('/bid/stack/performer/add',  function () use ($app) {
     }
 });
 
-// Сделать Кандидата Исполнителем задания
+// Сделать Кандидата Исполнителем конкретного задания
 // input: bid_id, performer_id, cost
 $app->post('/bid/performer/add',  function () use ($app) {
     try {
@@ -250,7 +254,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
         $input = json_decode($body);
 
         // Проверка авторизации
-        CheckAuth($input->user_id, $input->hash);
+//        CheckAuth($input->performer_id, $input->hash);
 
         $bid = Bid::where('id', $input->bid_id)->first();
         $bid->performer_id = $input->performer_id;
@@ -282,7 +286,7 @@ $app->get('bid/performers', function() {
     }
 });
 
-// Сделать Пользователя Исполнителем
+// Занести Пользователя в Исполнители
 // input: user_id
 $app->post('/performer/add', function () use ($app) {
     try {

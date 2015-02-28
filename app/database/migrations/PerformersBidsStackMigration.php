@@ -4,7 +4,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 /**
  * Example migration for use with "novice"
  */
-class PerformersBidStackMigration {
+class PerformersBidsStackMigration {
     function run()
     {
         Capsule::schema()->dropIfExists('performersbidsstacks');

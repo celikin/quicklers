@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class PerformersBidStack extends Eloquent {
+class PerformersBidsStack extends Eloquent {
     public function bid()
     {
         return $this->hasOne('Bid');
