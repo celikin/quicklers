@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class PerfomersBidStack extends Eloquent {
+class PerformersBidStack extends Eloquent {
     public function bid()
     {
         return $this->hasOne('Bid');
@@ -15,5 +15,5 @@ class PerfomersBidStack extends Eloquent {
      *
      * @var string
      */
-    protected $table = 'performersbidstacks';
+    protected $table = 'performersbidsstacks';
 }
