@@ -12,6 +12,7 @@ class SubCategoryMigration {
         Capsule::schema()->create('subcategories', function($table) {
             $table->increments('id');
             $table->string('alias');
+            $table->string('desc');
             $table->timestamps();
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
