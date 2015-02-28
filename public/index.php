@@ -5,10 +5,10 @@ require __DIR__.'/../vendor/autoload.php';
 $app = new Slim\Slim();
 
 // Чекаем авторизацию
-// input: id, hash
-function CheckAuth($id, $hash){
+// input: user_id, hash
+function CheckAuth($user_id, $hash){
     $result = false;
-    $user = User::find($id);
+    $user = User::find($user_id);
     if(!($user->hash == $hash)){
         echo json_encode(array('status' => false, 'code' => 403, 'msg'=> 'Ошибка авторизации!'));
         die();
@@ -105,7 +105,7 @@ $app->post('/auth/check', function () use ($app){
         $input = json_decode($body);
 
         // Проверка авторизации
-        CheckAuth($input->id, $input->hash);
+        CheckAuth($input->user_id, $input->hash);
 
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
@@ -177,7 +177,8 @@ $app->post('/bid/add', function () use ($app) {
         $input = json_decode($body);
 
         // Проверка авторизации
-        CheckAuth($input->id, $input->hash);
+//        РАССКОМЕНТИТЬ!
+//        CheckAuth($input->user_id, $input->hash);
 
         $bid = new Bid;
         $bid->title = (string)$input->title;
@@ -185,7 +186,8 @@ $app->post('/bid/add', function () use ($app) {
         $bid->deadline = (integer)$input->deadline;
         $bid->status = 1;
         $bid->city_id = (integer)$input->city_id;
-        $bid->user_id = $input->id; // ДОБАВИЛИ ЗАНЕСЕНИЕ ЮЗЕРА
+        $bid->user_id = null;
+//        $bid->user_id = $input->id; // ДОБАВИЛИ ЗАНЕСЕНИЕ ЮЗЕРА
         $bid->performer_id = null;
         $bid->subcategory_id = (integer)$input->subcategory_id;
         $bid->save();
@@ -213,6 +215,32 @@ $app->get('/bid/:id', function($id) {
 
 });
 
+// Добавление кандидата в стэк кандидатов
+// input: bid_id, user_id == performer_id, cost - цена, предлагаемая исполнителем
+$app->post('/bid/stack/performer/add',  function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+
+        // Проверка авторизации
+        CheckAuth($input->user_id, $input->hash);
+
+        $bidstack = new PerformersBidStack();
+        $bidstack->bid_id = $input->bid_id;
+        $bidstack->performer_id = $input->user_id;
+        $bidstack->cost = $input->cost;
+        $bidstack->save();
+
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => true));
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+    }
+});
+
 // Сделать Кандидата Исполнителем задания
 // input: bid_id, performer_id, cost
 $app->post('/bid/performer/add',  function () use ($app) {
@@ -222,7 +250,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
         $input = json_decode($body);
 
         // Проверка авторизации
-        CheckAuth($input->id, $input->hash);
+        CheckAuth($input->user_id, $input->hash);
 
         $bid = Bid::where('id', $input->bid_id)->first();
         $bid->performer_id = $input->performer_id;
@@ -238,6 +266,8 @@ $app->post('/bid/performer/add',  function () use ($app) {
         echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
 });
+
+
 
 
 
