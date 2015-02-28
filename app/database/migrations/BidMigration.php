@@ -33,6 +33,7 @@ class BidMigration {
             $table->string('desc');
             $table->timestamp('deadline');
             $table->timestamps();
+            $table->integer('status');
             $table->integer('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->integer('user_id')->unsigned()->nullable();
