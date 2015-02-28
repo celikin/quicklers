@@ -271,7 +271,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
     }
 });
 
-
+// НЕ ТЕСЛИТ
 //Вывод пользователя по ИД
 function PrintUser($id){
     $user = User::where('id',$id)->first();

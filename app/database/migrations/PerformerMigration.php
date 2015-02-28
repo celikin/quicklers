@@ -11,6 +11,7 @@ class PerformerMigration {
         Capsule::schema()->dropIfExists('performers');
         Capsule::schema()->create('performers', function($table) {
             $table->increments('id');
+            $table->string('desc');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');//->onDelete('cascade');
             $table->timestamps();
