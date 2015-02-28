@@ -185,6 +185,7 @@ $app->post('/bid/add', function () use ($app) {
         $bid->title = (string)$input->title;
         $bid->desc = (string)$input->desc;
         $bid->deadline = (integer)$input->deadline;
+        $bid->status = 1;
         $bid->city_id = (integer)$input->city_id;
         $bid->user_id = null;
         $bid->performer_id = null;
