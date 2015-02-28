@@ -175,7 +175,7 @@ $app->get('/categories', function() {
 
 //Добавление заявки
 // input: title, desc, deadline, city_id, subcategory_id
-// output: $bid
+// output: $bid    
 $app->post('/bid/add', function () use ($app) {
     try {
         $request = $app->request();
@@ -214,4 +214,26 @@ $app->get('/bid/:id', function($id) {
     echo json_encode($bids);
 
 });
+
+// Сделать Кандидата Исполнителем задания
+// input: bid_id, performer_id
+$app->post('/bid/performer/add',  function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+
+        $bid = Bid::where('id', $input->bid_id)->first();
+        $bid->performer_id = $input->performer_id;
+        $bid->save();
+
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => true);
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+    }
+});
+
 $app->run();
