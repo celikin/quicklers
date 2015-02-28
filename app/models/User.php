@@ -12,6 +12,14 @@ class User extends Eloquent {
     {
         return $this->hasOne('Performer');
     }
+    public function comment()
+    {
+        return $this->hasMany('Comment');
+    }
+    public function customer()
+    {
+        return $this->hasOne('Customer');
+    }
 	/**
 	 * The database table used by the model.
 	 *

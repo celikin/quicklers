@@ -7,8 +7,8 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class PerfomersBidStackMigration {
     function run()
     {
-        Capsule::schema()->dropIfExists('costumers');
-        Capsule::schema()->create('costumers', function($table) {
+        Capsule::schema()->dropIfExists('PerfomersBidsStacks');
+        Capsule::schema()->create('PerfomersBidsStacks', function($table) {
             $table->increments('id');
             $table->increments('performer_id')->unsigned();
             $table->foreign('performer_id')->references('id')->on('performers');
