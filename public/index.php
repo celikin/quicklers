@@ -227,14 +227,12 @@ $app->post('/bid/stack/performer/add',  function () use ($app) {
         // Проверка авторизации
 //        CheckAuth($input->user_id, $input->hash);
 
-//        $bidstack = new PerformersBidsStack;
-//        $bidstack->cost = (integer)$input->cost;
-//        $bidstack->performer_id = (integer)$input->performer_id;
-//        $bidstack->bid_id = (integer)$input->bid_id;
-//
-//        $bidstack->save();
+        $bidstack = new PerformersBidsStack;
+        $bidstack->cost = (integer)$input->cost;
+        $bidstack->performer_id = (integer)$input->performer_id;
+        $bidstack->bid_id = (integer)$input->bid_id;
 
-       $performer = PerformersBidsStack::create(array('cost' => (integer)$input->cost, 'performer_id' => (integer)$input->performer_id, 'bid_id' => (integer)$input->bid_id));
+        $bidstack->save();
 
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
