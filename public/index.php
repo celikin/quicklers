@@ -1,7 +1,6 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
-require __DIR__.'/../public/Utills.php';
 
 $app = new Slim\Slim();
 
