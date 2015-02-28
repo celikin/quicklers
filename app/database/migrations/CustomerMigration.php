@@ -11,7 +11,8 @@ class CustomerMigration {
         Capsule::schema()->dropIfExists('customers');
         Capsule::schema()->create('customers', function($table) {
             $table->increments('id');
-            $table->increments('user_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
