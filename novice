@@ -44,8 +44,12 @@ class Novice {
 
     function runMigrations()
     {
-        $files = glob(MIGRATIONS_PATH.'/*.php');
-
+        //$files = glob(MIGRATIONS_PATH.'/*.php');
+        $arr_file = array("CityMigration","UserMigration","PerformerMigration");
+        foreach ($arr_file as $a_file){
+          $files[] = MIGRATIONS_PATH."/".$a_file.'.php';
+        }
+      //  print_r($files);
         $this->run($files);
     }
 
@@ -56,8 +60,8 @@ class Novice {
         $this->run($files);
     }
     
-    private function run($files)
-    {
+    private function run($files){
+
         foreach ($files as $file) {
             require_once($file);
 

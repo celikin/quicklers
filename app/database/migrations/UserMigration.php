@@ -19,7 +19,9 @@ class UserMigration {
             $table->boolean('banned');
             $table->boolean('deleted');
             $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('cities');
-        });
+            //$table->integer('city_id')->after('id')->nullable()->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities');//->onDelete('cascade');
+            }
+        );
     }
 }
