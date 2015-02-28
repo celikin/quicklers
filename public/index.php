@@ -118,4 +118,16 @@ $app->post('/category/sub/add', function () use ($app) {
     }
 });
 
+//Вывод категорий
+$app->get('/categories', function() {
+    //$categories = Category::all();
+    $categories = Category::with('subcategory')->get();
+    echo json_encode($categories);
+});
+//Вывод подкатегорий
+$app->get('/categories/sub', function() {
+    $subcategories = SubCategory::all();
+    echo json_encode($subcategories);
+});
+
 $app->run();
