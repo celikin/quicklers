@@ -1,17 +1,31 @@
 <?php
 
 require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../public/Utills.php';
 
 $app = new Slim\Slim();
 
+// Чекаем авторизацию
+// input: id, hash
+function CheckAuth($id, $hash){
+    $result = false;
+    $user = User::find($id);
+    if(!($user->hash == $hash)){
+        echo json_encode(array('status' => false, 'code' => 403, 'msg'=> 'Ошибка авторизации!'));
+        die();
+    }
+}
+
+// Получаем всех поль зователей
 $app->get('/users', function() {
     $users = User::all();
     echo json_encode($users);
 });
 
+
 // Проверяем наличие пользователя
 // input: phone
-$app->post('/users/check', function () use ($app){
+$app->post('/user/check', function () use ($app){
     try {
         $request = $app->request();
         $body = $request->getBody();
@@ -26,13 +40,13 @@ $app->post('/users/check', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        $app->response()->header('X-Status-Reason', $e->getMessage());
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
 });
 
 // Добавление пользователя
 // input: phone, username, address
-$app->post('/users/add', function () use ($app) {
+$app->post('/user/add', function () use ($app) {
     try {
         $request = $app->request();
         $body = $request->getBody();
@@ -49,13 +63,15 @@ $app->post('/users/add', function () use ($app) {
 
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
-        echo json_encode(array('status' => true));
+        echo json_encode(array('status' => true, 'id' => $user->id, 'hash' => $user->hash));
     } catch (Exception $e) {
         $app->response()->status(400);
-        $app->response()->header('X-Status-Reason', $e->getMessage());
-        print_r($input);
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
 });
+
+
+
 
 // Авторизация пользователя (Который есть в базе!)
 // input: phone
@@ -66,8 +82,31 @@ $app->post('/auth/login', function () use ($app){
         $input = json_decode($body);
 
         // Типа если юзер правильный, даем ему хеш (в данном случае, юзер априори молодец)
-        User::where('phone', '=', $input->phone)
-            ->update(array('hash' => (string) md5(md5((string)$input->phone).mktime())));
+        $user = User::where('phone', '=', $input->phone)->first();
+        $user->hash = (string) md5(md5((string)$input->phone).mktime());
+        $user->save();
+
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+
+        echo json_encode(array('status' => true, 'id' => $user->id, 'hash' => $user->hash));
+
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+    }
+});
+
+// Проверка авторизации (исли вдруг понадобится)
+// input: id, hash
+$app->post('/auth/check', function () use ($app){
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+
+        // Проверка авторизации
+        CheckAuth($input->id, $input->hash);
 
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
@@ -75,7 +114,7 @@ $app->post('/auth/login', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        $app->response()->header('X-Status-Reason', $e->getMessage());
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
 });
 
@@ -85,6 +124,10 @@ $app->post('/category/add', function () use ($app) {
         $request = $app->request();
         $body = $request->getBody();
         $input = json_decode($body);
+
+        // Проверка авторизации
+        CheckAuth($input->id, $input->hash);
+
         $category = new Category;
         $category->alias = (string)$input->alias;
         $category->desc = (string)$input->desc;
@@ -94,7 +137,7 @@ $app->post('/category/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        $app->response()->header('X-Status-Reason', $e->getMessage());
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
 });
 
@@ -104,6 +147,10 @@ $app->post('/category/sub/add', function () use ($app) {
         $request = $app->request();
         $body = $request->getBody();
         $input = json_decode($body);
+
+        // Проверка авторизации
+        CheckAuth($input->id, $input->hash);
+
         $subcategory = new SubCategory;
         $subcategory->alias = (string)$input->alias;
         $subcategory->desc = (string)$input->desc;
@@ -114,7 +161,7 @@ $app->post('/category/sub/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        $app->response()->header('X-Status-Reason', $e->getMessage());
+        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
     }
 });
 

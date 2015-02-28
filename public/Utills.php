@@ -8,14 +8,13 @@
 
 class Utills {
 
-    public function CheckAuth($phone, $hash){
+    public function CheckAuth($id, $hash){
         $result = false;
-        $user = User::where('phone', '=', $phone)->get();
+        $user = User::find($id);
         if($user->hash == $hash){
             $result = true;
         }
         return $result;
     }
-
 
 } 
