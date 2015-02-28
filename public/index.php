@@ -125,9 +125,6 @@ $app->post('/category/add', function () use ($app) {
         $body = $request->getBody();
         $input = json_decode($body);
 
-        // Проверка авторизации
-        CheckAuth($input->id, $input->hash);
-
         $category = new Category;
         $category->alias = (string)$input->alias;
         $category->desc = (string)$input->desc;
@@ -148,9 +145,6 @@ $app->post('/category/sub/add', function () use ($app) {
         $request = $app->request();
         $body = $request->getBody();
         $input = json_decode($body);
-
-        // Проверка авторизации
-        CheckAuth($input->id, $input->hash);
 
         $subcategory = new SubCategory;
         $subcategory->alias = (string)$input->alias;
@@ -181,13 +175,17 @@ $app->post('/bid/add', function () use ($app) {
         $request = $app->request();
         $body = $request->getBody();
         $input = json_decode($body);
+
+        // Проверка авторизации
+        CheckAuth($input->id, $input->hash);
+
         $bid = new Bid;
         $bid->title = (string)$input->title;
         $bid->desc = (string)$input->desc;
         $bid->deadline = (integer)$input->deadline;
         $bid->status = 1;
         $bid->city_id = (integer)$input->city_id;
-        $bid->user_id = null;
+        $bid->user_id = $input->id; // ДОБАВИЛИ ЗАНЕСЕНИЕ ЮЗЕРА
         $bid->performer_id = null;
         $bid->subcategory_id = (integer)$input->subcategory_id;
         $bid->save();
@@ -216,15 +214,20 @@ $app->get('/bid/:id', function($id) {
 });
 
 // Сделать Кандидата Исполнителем задания
-// input: bid_id, performer_id
+// input: bid_id, performer_id, cost
 $app->post('/bid/performer/add',  function () use ($app) {
     try {
         $request = $app->request();
         $body = $request->getBody();
         $input = json_decode($body);
 
+        // Проверка авторизации
+        CheckAuth($input->id, $input->hash);
+
         $bid = Bid::where('id', $input->bid_id)->first();
         $bid->performer_id = $input->performer_id;
+//        ПО-ХОРОШЕМУ нужно добавлять еще и цену от исполнителя
+//        $bid->cost = $input->cost;
         $bid->save();
 
         // return JSON-encoded response body
