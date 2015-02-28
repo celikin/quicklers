@@ -10,6 +10,7 @@ class PerformersBidStackMigration {
         Capsule::schema()->dropIfExists('performersbidsstacks');
         Capsule::schema()->create('performersbidsstacks', function($table) {
             $table->increments('id');
+            $table->integer('cost');
             $table->integer('performer_id')->unsigned();
             $table->foreign('performer_id')->references('id')->on('performers');
             $table->integer('bid_id')->unsigned();
