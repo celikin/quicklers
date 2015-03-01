@@ -31,6 +31,11 @@ $app->get('/admin', function () use ($app){
                 'add' => 'bid/add',
                 'query' => 'cities',
                 'keys' => ['alias'],
+            ],
+            'category'=>[
+                'add' => 'category/add',
+                'query' => 'categories',
+                'keys' => ['alias'],
             ]
 
         ])
