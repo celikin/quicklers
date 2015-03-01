@@ -12,7 +12,21 @@ $app = new Slim\Slim([
 $app->get('/admin', function () use ($app){
     $app->render('admin.html', [
         'meta' => json_encode([
-            'users'=>['username', 'phone', 'address', 'city']
+            'users'=>[
+                'add' => 'user/add',
+                'query' => 'users',
+                'keys' => ['username', 'phone', 'address', 'city'],
+                // 'keys' => [
+                //     'editable' => ['username', 'phone', 'address', 'city'],
+                //     'readonly' => ['id', 'hash']
+                // ]
+            ],
+            'bid'=>[
+                'add' => 'bid/add',
+                'query' => 'bids/100',
+                'keys' => [],
+                'count' => '100'
+            ]
         ])
     ]);
 });

@@ -1,17 +1,76 @@
 <!DOCTYPE html>
-
+<meta charset="utf-8">
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
 
+<link href="https://code.jquery.com/ui/1.11.2/themes/redmond/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+<style>
+#tables table{
+	border-collapse: collapse;
+}
+#tables table td {
+	border: thin solid black;
+	padding: 0.2cm;
+}
+thead{
+	font-weight: bold;
+}
+</style>
+
 <script type = "text/javascript">
 var META = {{meta|raw}};
+
+function getTr(list){
+	var tr = $('<tr/>');
+	for (var i in list){
+		tr.append($('<td>').text(list[i]));
+	}
+	return tr;
+}
+
+function responseToTable(view, model, meta){
+	return function (response) {
+		response = $.parseJSON(response);
+		var keys = [];
+		for (var key in response[0])
+			keys.push(key);
+		var table = $('<table/>').appendTo(view);
+		$('<thead/>').append(getTr(keys)).appendTo(table);
+
+		console.log(response);
+		for (var i in response){
+			var vals = [];
+			var record = response[i];
+			for (var j in keys)
+				vals.push(record[keys[j]]);
+			table.append(getTr(vals));
+		}
+	}
+}
+
+$(function(){
+	var tables = $('#tables');
+	for(var model in META){
+		var meta = META[model];
+		var tabs = $('#table_tabs');
+
+		tabs.append(
+			$('<li/>').append(
+				$('<a/>').attr('href', '#table-' + model).text(model)
+			)
+		);
+		var view = $('<div/>').attr('id', 'table-' + model);
+		tables.append(view);
+
+		$.get(meta.query, '', responseToTable(view, model, meta));
+	}
+	tables.tabs();
+
+});
 </script>
 
 <body>
-	<form>
-
-	</form>
-	{% for user in users %}
-		{{user}}
-	{%endfor%}
+	<div id = "tables"><ul id="table_tabs"></ul></div>
+	<div id = "queries"></div>
 </body>
