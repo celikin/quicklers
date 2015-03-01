@@ -28,7 +28,7 @@ $app->get('/admin', function () use ($app){
                 'count' => '100'
             ],
             'city'=>[
-                'add' => 'bid/add',
+                'add' => 'city/add',
                 'query' => 'cities',
                 'keys' => ['alias'],
             ],
@@ -36,6 +36,11 @@ $app->get('/admin', function () use ($app){
                 'add' => 'category/add',
                 'query' => 'categories',
                 'keys' => ['alias'],
+            ],
+            'category'=>[
+                'add' => '/category/sub/add',
+                'query' => 'categories',
+                'keys' => ['category_id', 'alias', 'desc'],
             ]
 
         ])

@@ -8,6 +8,13 @@
 <style>
 #tables table{
 	border-collapse: collapse;
+	overflow:scroll;
+}
+#tables{
+	max-height: 60%;
+}
+#queries{
+	max-height: 30%;
 }
 #tables table td {
 	border: thin solid black;
@@ -15,6 +22,10 @@
 }
 thead{
 	font-weight: bold;
+}
+
+.hidden{
+	display:none;
 }
 </style>
 
@@ -40,7 +51,6 @@ function responseToTable(view, model, meta){
 		var table = $('<table/>').appendTo(view);
 		$('<thead/>').append(getTr(keys)).appendTo(table);
 
-		console.log(response);
 		for (var i in response){
 			var vals = [];
 			var record = response[i];
@@ -51,11 +61,43 @@ function responseToTable(view, model, meta){
 	}
 }
 
+function sendData(){
+	var meta = META[$('#adder select').val()];
+	var raw = $('#adder form').serializeArray();
+	var data = {};
+	for (var i in raw){
+		data[raw[i].name] = raw[i].value;
+	}
+	$.ajax({
+		'type': 'POST',
+		'url': meta.add,
+		'data': JSON.stringify(data),
+		'contentType': 'application/json',
+		'dataType': 'application/json',
+		'complete':refresh
+	});
+}
+
+function buildAdder(){
+	var meta = META[$('#adder select').val()];
+	var form = $('#adder form');
+	form.empty();
+	console.log(meta)
+	for (var i in meta.keys){
+		var key = meta.keys[i];
+		$('<label/>').text(key).appendTo(form);
+		$('<input/>').attr('name', key).appendTo(form);
+	}
+	$('<button type="button"/>').text('Add').click(sendData).appendTo(form);
+	console.log(form);
+}
+
 function refresh(){
-	var tables = $('#tables');
+	var tables = $('<div id = "tables"/>').appendTo($('#tables-container').empty());
+	var tabs = $('<ul id="table_tabs"/>').appendTo(tables);
+	var select = $('#adder select').change(buildAdder);
 	for(var model in META){
 		var meta = META[model];
-		var tabs = $('#table_tabs');
 
 		tabs.append(
 			$('<li/>').append(
@@ -66,8 +108,11 @@ function refresh(){
 		tables.append(view);
 
 		$.get(meta.query, '', responseToTable(view, model, meta));
+		$('<option/>').text(model).appendTo(select);
 	}
+
 	tables.tabs();
+	buildAdder();
 }
 
 $(function(){
@@ -76,9 +121,11 @@ $(function(){
 </script>
 
 <body>
-	<div id = "tables"><ul id="table_tabs"></ul></div>
-	<div id = "queries"></div>
+	<div id = "adder"><select></select><form></form></div>
+	<div id = "tables-container"><div id = "tables"><ul id="table_tabs"></ul></div></div>
+	<button onclick = "refresh()">Refresh</button>
+	<button onclick = "$('#queries').toggleClass('hidden')">Show/hide query log</button>
+	<div id = "queries" class="hidden"></div>
 
-	<button onclick = 'refresh()'>Refresh</button>
 
 </body>
