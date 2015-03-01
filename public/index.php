@@ -2,7 +2,21 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-$app = new Slim\Slim();
+$app = new Slim\Slim([
+    'debug' => true,
+    'view' => new \Slim\Views\Twig(),
+    'templates.path' => '../app/templates'
+]);
+
+
+$app->get('/admin', function () use ($app){
+    $app->render('admin.html', [
+        'meta' => json_encode([
+            'users'=>['username', 'phone', 'address', 'city']
+        ])
+    ]);
+});
+
 
 // Чекаем авторизацию
 // input: user_id, hash
@@ -15,12 +29,11 @@ function CheckAuth($user_id, $hash){
     }
 }
 
-// Получаем всех поль зователей
+// Получаем всех пользователей
 $app->get('/users', function() {
     $users = User::all();
     echo json_encode($users);
 });
-
 
 // Проверяем наличие пользователя
 // input: phone
@@ -58,6 +71,11 @@ $app->post('/user/add', function () use ($app) {
         $user->banned = false;
         $user->deleted = false;
         $user->city_id = 1;
+
+        if(!City::all()->count()) {
+            $city = new City;
+            $city->save();
+        }
         $user->save();
 
         // return JSON-encoded response body
