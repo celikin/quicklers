@@ -52,7 +52,7 @@ class Novice {
             "UserMigration",
             "PerformerMigration",
             "BidMigration",
-            "PerformersBidStackMigration",
+            "PerformersBidsStackMigration",
             "CommentMigration"
         );
         foreach ($arr_file as $a_file){

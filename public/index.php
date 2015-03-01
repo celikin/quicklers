@@ -31,23 +31,23 @@ $app->get('/admin', function () use ($app){
     ]);
 });
 
-
 // Чекаем авторизацию
 // input: user_id, hash
 function CheckAuth($user_id, $hash){
     $result = false;
     $user = User::find($user_id);
     if(!($user->hash == $hash)){
-        echo json_encode(array('status' => false, 'code' => 403, 'msg'=> 'Ошибка авторизации!'));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 403, 'msg'=> 'Ошибка авторизации!')));
         die();
     }
 }
 
-// Получаем всех пользователей
+// Получаем всех поль зователей
 $app->get('/users', function() {
     $users = User::all();
     echo json_encode($users);
 });
+
 
 // Проверяем наличие пользователя
 // input: phone
@@ -66,7 +66,7 @@ $app->post('/user/check', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -85,11 +85,6 @@ $app->post('/user/add', function () use ($app) {
         $user->banned = false;
         $user->deleted = false;
         $user->city_id = 1;
-
-        if(!City::all()->count()) {
-            $city = new City;
-            $city->save();
-        }
         $user->save();
 
         // return JSON-encoded response body
@@ -97,7 +92,7 @@ $app->post('/user/add', function () use ($app) {
         echo json_encode(array('status' => true, 'id' => $user->id, 'hash' => $user->hash));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -124,7 +119,7 @@ $app->post('/auth/login', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -145,7 +140,7 @@ $app->post('/auth/check', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -166,7 +161,7 @@ $app->post('/category/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -188,14 +183,14 @@ $app->post('/category/sub/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
 //Вывод категорий
 $app->get('/categories', function() {
     $categories = Category::with('subcategory')->get();
-    echo json_encode($categories);
+    echo json_encode(array('status' => true, 'data'=>$categories,'error'=>[]));
 });
 
 
@@ -228,7 +223,7 @@ $app->post('/bid/add', function () use ($app) {
         echo json_encode(array('status' => true, 'bid' => $bid));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -236,14 +231,16 @@ $app->post('/bid/add', function () use ($app) {
 //input: count
 $app->get('/bids/:count', function($count) {
     $bids = Bid::all()->sortBy('created_at')->reverse()->where('status','1')->take($count);
-    echo json_encode($bids);
+    echo json_encode(array('status' => true, 'data'=>$bids,'error'=>[]));
+
 
 });
 //Вывод заявки по ИД
 //input: id
 $app->get('/bid/:id', function($id) {
     $bids = Bid::where('id',$id)->first();
-    echo json_encode($bids);
+    echo json_encode(array('status' => true, 'data'=>$bids,'error'=>[]));
+    //echo json_encode($bids);
 
 });
 
@@ -264,7 +261,7 @@ $app->post('/performer/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -291,7 +288,7 @@ $app->post('/bid/stack/performer/add',  function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -317,23 +314,43 @@ $app->post('/bid/performer/add',  function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false,'error'=>array( 'code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
-// НЕ ТЕСЛИТ
-//Вывод пользователя по ИД
-function PrintUser($id){
-    $user = User::where('id',$id)->first();
-    echo json_encode($user);
-}
-//Вывод кандидатов
-$app->get('bid/performers', function() {
-    $performersbidstack = PerformersBidStack::all();
-    foreach($performersbidstack as $arr) {
-        $uid = Performer::where('id', $arr->performer_id)->user_id;
-        PrintUser($uid);
+//Вывод кандидатов для заявки
+$app->get('/bid/performers/stacks/:bid_id', function($bid_id) {
+    $performersbidsstack = PerformersBidsStack::where('bid_id',$bid_id)->get();
+    //echo json_encode($performersbidsstacks);
+    $data=[];
+    foreach($performersbidsstack as $arr) {
+        $performer = Performer::where('id','=', $arr->performer_id)->first();
+        $user = User::where('id','=',$performer->user_id)->first();
+        $data[]=$user;
+    }
+    //echo json_encode($data);
+    echo json_encode(array('status' => true, 'data'=>$data,'error'=>[]));
+});
+
+// Занести Пользователя в Исполнители
+// input: user_id
+$app->post('/performer/add', function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
+
+        $performer = new Performer;
+        $performer->user_id = (string)$input->user_id;
+        $performer->save();
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => true));
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
+
 
 $app->run();
