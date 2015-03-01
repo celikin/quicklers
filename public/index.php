@@ -163,7 +163,7 @@ $app->post('/category/sub/add', function () use ($app) {
 //Вывод категорий
 $app->get('/categories', function() {
     $categories = Category::with('subcategory')->get();
-    echo json_encode($categories);
+    echo json_encode(array('status' => true, 'data'=>$categories,'error'=>[]);
 });
 
 
@@ -204,14 +204,16 @@ $app->post('/bid/add', function () use ($app) {
 //input: count
 $app->get('/bids/:count', function($count) {
     $bids = Bid::all()->sortBy('created_at')->reverse()->where('status','1')->take($count);
-    echo json_encode($bids);
+    echo json_encode(array('status' => true, 'data'=>$bids,'error'=>[]));
+
 
 });
 //Вывод заявки по ИД
 //input: id
 $app->get('/bid/:id', function($id) {
     $bids = Bid::where('id',$id)->first();
-    echo json_encode($bids);
+    echo json_encode(array('status' => true, 'data'=>$bids,'error'=>[]));
+    //echo json_encode($bids);
 
 });
 
