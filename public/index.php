@@ -39,7 +39,7 @@ $app->post('/user/check', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'error''code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -65,7 +65,7 @@ $app->post('/user/add', function () use ($app) {
         echo json_encode(array('status' => true, 'id' => $user->id, 'hash' => $user->hash));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -92,7 +92,7 @@ $app->post('/auth/login', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -113,7 +113,7 @@ $app->post('/auth/check', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -134,7 +134,7 @@ $app->post('/category/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -156,7 +156,7 @@ $app->post('/category/sub/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -196,7 +196,7 @@ $app->post('/bid/add', function () use ($app) {
         echo json_encode(array('status' => true, 'bid' => $bid));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -232,7 +232,7 @@ $app->post('/performer/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -259,7 +259,7 @@ $app->post('/bid/stack/performer/add',  function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
@@ -320,7 +320,7 @@ $app->post('/performer/add', function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
