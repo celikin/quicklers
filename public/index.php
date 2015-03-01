@@ -10,7 +10,7 @@ function CheckAuth($user_id, $hash){
     $result = false;
     $user = User::find($user_id);
     if(!($user->hash == $hash)){
-        echo json_encode(array('status' => false, 'code' => 403, 'msg'=> 'Ошибка авторизации!'));
+        echo json_encode(array('status' => false, 'error'=>array('code' => 403, 'msg'=> 'Ошибка авторизации!')));
         die();
     }
 }
@@ -39,7 +39,7 @@ $app->post('/user/check', function () use ($app){
 
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false, 'error''code' => 400, 'msg'=>$e->getMessage()));
     }
 });
 
@@ -285,7 +285,7 @@ $app->post('/bid/performer/add',  function () use ($app) {
         echo json_encode(array('status' => true));
     } catch (Exception $e) {
         $app->response()->status(400);
-        echo json_encode(array('status' => false, 'code' => 400, 'msg'=>$e->getMessage()));
+        echo json_encode(array('status' => false,'error'=>array( 'code' => 400, 'msg'=>$e->getMessage())));
     }
 });
 
