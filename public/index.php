@@ -91,7 +91,6 @@ $app->post('/user/add', function () use ($app) {
         $user = new User;
         $user->username = (string)$input->username;
         $user->phone = (string)$input->phone;
-        $user->address = (string)$input->address;
         $user->hash = (string) md5(md5((string)$input->phone).mktime());
         $user->banned = false;
         $user->deleted = false;
@@ -100,7 +99,11 @@ $app->post('/user/add', function () use ($app) {
 
         // return JSON-encoded response body
         $app->response()->header('Content-Type', 'application/json');
-        echo json_encode(array('status' => true, 'id' => $user->id, 'hash' => $user->hash));
+        echo json_encode([
+            'status' => true, 
+            'data' => ['id' => $user->id, 'hash' => $user->hash],
+            'error' => []
+        ]);
     } catch (Exception $e) {
         $app->response()->status(400);
         echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
