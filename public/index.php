@@ -292,17 +292,13 @@ $app->post('/bid/performer/add',  function () use ($app) {
 });
 
 // НЕ ТЕСЛИТ
-//Вывод пользователя по ИД
-function PrintUser($id){
-    $user = User::where('id',$id)->first();
-    echo json_encode($user);
-}
 //Вывод кандидатов
 $app->get('bid/performers', function() {
     $performersbidstack = PerformersBidStack::all();
     foreach($performersbidstack as $arr) {
         $uid = Performer::where('id', $arr->performer_id)->user_id;
-        PrintUser($uid);
+        $user = User::all()->where('id',$uid)->first();
+        echo json_encode($user);
     }
 });
 
