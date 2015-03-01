@@ -295,11 +295,12 @@ $app->post('/bid/performer/add',  function () use ($app) {
 //Вывод кандидатов
 $app->get('bid/performers', function() {
     $performersbidstack = PerformersBidStack::all();
-    foreach($performersbidstack as $arr) {
+    echo json_encode($performersbidstack);
+    /*foreach($performersbidstack as $arr) {
         $uid = Performer::where('id', $arr->performer_id)->user_id;
         $user = User::all()->where('id',$uid)->first();
-        echo json_encode($user);
-    }
+        echo json_encode($uid);
+    }*/
 });
 
 // Занести Пользователя в Исполнители
