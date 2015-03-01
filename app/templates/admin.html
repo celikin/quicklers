@@ -31,7 +31,9 @@ function getTr(list){
 
 function responseToTable(view, model, meta){
 	return function (response) {
+		$('<div/>').text(response).appendTo($('#queries'));
 		response = $.parseJSON(response);
+		if(response.data) response = response.data;
 		var keys = [];
 		for (var key in response[0])
 			keys.push(key);
@@ -49,7 +51,7 @@ function responseToTable(view, model, meta){
 	}
 }
 
-$(function(){
+function refresh(){
 	var tables = $('#tables');
 	for(var model in META){
 		var meta = META[model];
@@ -66,11 +68,17 @@ $(function(){
 		$.get(meta.query, '', responseToTable(view, model, meta));
 	}
 	tables.tabs();
+}
 
+$(function(){
+	refresh();
 });
 </script>
 
 <body>
 	<div id = "tables"><ul id="table_tabs"></ul></div>
 	<div id = "queries"></div>
+
+	<button onclick = 'refresh()'>Refresh</button>
+
 </body>
