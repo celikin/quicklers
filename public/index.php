@@ -26,7 +26,13 @@ $app->get('/admin', function () use ($app){
                 'query' => 'bids/100',
                 'keys' => [],
                 'count' => '100'
+            ],
+            'city'=>[
+                'add' => 'bid/add',
+                'query' => 'cities',
+                'keys' => ['alias'],
             ]
+
         ])
     ]);
 });
@@ -352,5 +358,28 @@ $app->post('/performer/add', function () use ($app) {
     }
 });
 
+//Добавление города
+// input: alias
+$app->post('/city/add', function () use ($app) {
+    try {
+        $request = $app->request();
+        $body = $request->getBody();
+        $input = json_decode($body);
 
+        $city = new City;
+        $city->alias = (string)$input->alias;
+        $city->save();
+        // return JSON-encoded response body
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode(array('status' => true));
+    } catch (Exception $e) {
+        $app->response()->status(400);
+        echo json_encode(array('status' => false, 'error'=>array('code' => 400, 'msg'=>$e->getMessage())));
+    }
+});
+//Вывод городов
+$app->get('/cities', function() {
+    $city = City::all();
+    echo json_encode(array('status' => true, 'data'=>$city,'error'=>[]));
+});
 $app->run();
