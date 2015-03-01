@@ -163,7 +163,7 @@ $app->post('/category/sub/add', function () use ($app) {
 //Вывод категорий
 $app->get('/categories', function() {
     $categories = Category::with('subcategory')->get();
-    echo json_encode(array('status' => true, 'data'=>$categories,'error'=>[]);
+    echo json_encode(array('status' => true, 'data'=>$categories,'error'=>[]));
 });
 
 
