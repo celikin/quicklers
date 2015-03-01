@@ -301,7 +301,8 @@ $app->get('/bid/performers/stacks/:bid_id', function($bid_id) {
         $user = User::where('id','=',$performer->user_id)->first();
         $data[]=$user;
     }
-    echo json_encode($data);
+    //echo json_encode($data);
+    echo json_encode(array('status' => true, 'data'=>$data,'error'=>[]));
 });
 
 // Занести Пользователя в Исполнители
