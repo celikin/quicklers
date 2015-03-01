@@ -64,7 +64,18 @@ class Novice {
 
     function runSeed()
     {
-        $files = glob(SEEDS_PATH.'/*.php');
+        //$files = glob(SEEDS_PATH.'/*.php');
+
+        $arr_file = array(
+            "CitySeed",
+            "UserSeed",
+            "CategorySeed",
+            "SubCategorySeed",
+            "PerformerSeed"
+        );
+        foreach ($arr_file as $a_file){
+            $files[] = SEEDS_PATH."/".$a_file.'.php';
+        }
 
         $this->run($files);
     }

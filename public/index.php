@@ -233,12 +233,7 @@ $app->get('/bid/:id', function($id) {
 
 });
 
-
-//__________________________________________________________________________________________________________
-
-
-
-// Сделать Пользователя Исполнителем                   ОШИБКА 500
+// Сделать Пользователя Исполнителем
 // input: user_id
 $app->post('/performer/add', function () use ($app) {
     try {
@@ -270,10 +265,11 @@ $app->post('/bid/stack/performer/add',  function () use ($app) {
         // Проверка авторизации
         CheckAuth($input->user_id, $input->hash);
 
-        $bidstack = new PerformersBidStack();
-        $bidstack->bid_id = $input->bid_id;
-        $bidstack->performer_id = $input->user_id;
-        $bidstack->cost = $input->cost;
+        $bidstack = new PerformersBidsStack;
+        $bidstack->cost = (integer)$input->cost;
+        $bidstack->performer_id = (integer)$input->performer_id;
+        $bidstack->bid_id = (integer)$input->bid_id;
+
         $bidstack->save();
 
         // return JSON-encoded response body
@@ -285,7 +281,7 @@ $app->post('/bid/stack/performer/add',  function () use ($app) {
     }
 });
 
-// Сделать Кандидата Исполнителем задания
+// Сделать Кандидата Исполнителем конкретного задания
 // input: bid_id, performer_id, cost
 $app->post('/bid/performer/add',  function () use ($app) {
     try {
