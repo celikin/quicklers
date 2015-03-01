@@ -291,16 +291,17 @@ $app->post('/bid/performer/add',  function () use ($app) {
     }
 });
 
-// НЕ ТЕСЛИТ
-//Вывод кандидатов
-$app->get('bid/performers', function() {
-    $performersbidstack = PerformersBidStack::all();
-    echo json_encode($performersbidstack);
-    /*foreach($performersbidstack as $arr) {
-        $uid = Performer::where('id', $arr->performer_id)->user_id;
-        $user = User::all()->where('id',$uid)->first();
-        echo json_encode($uid);
-    }*/
+//Вывод кандидатов для заявки
+$app->get('/bid/performers/stacks/:bid_id', function($bid_id) {
+    $performersbidsstack = PerformersBidsStack::where('bid_id',$bid_id)->get();
+    //echo json_encode($performersbidsstacks);
+    $data=[];
+    foreach($performersbidsstack as $arr) {
+        $performer = Performer::where('id','=', $arr->performer_id)->first();
+        $user = User::where('id','=',$performer->user_id)->first();
+        $data[]=$user;
+    }
+    echo json_encode($data);
 });
 
 // Занести Пользователя в Исполнители
