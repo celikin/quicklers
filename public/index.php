@@ -201,7 +201,7 @@ $app->get('/categories', function() {
 
 
 //Добавление заявки
-// input: title, desc, deadline, city_id, subcategory_id
+// input: title, desc, deadline, city_id, user_id, subcategory_id
 // output: $bid    
 $app->post('/bid/add', function () use ($app) {
     try {
@@ -211,7 +211,7 @@ $app->post('/bid/add', function () use ($app) {
 
         // Проверка авторизации
 //        РАССКОМЕНТИТЬ!
-//        CheckAuth($input->user_id, $input->hash);
+        CheckAuth($input->user_id, $input->hash);
 
         $bid = new Bid;
         $bid->title = (string)$input->title;
@@ -219,8 +219,7 @@ $app->post('/bid/add', function () use ($app) {
         $bid->deadline = (integer)$input->deadline;
         $bid->status = 1;
         $bid->city_id = (integer)$input->city_id;
-        $bid->user_id = null;
-//        $bid->user_id = $input->id; // ДОБАВИЛИ ЗАНЕСЕНИЕ ЮЗЕРА
+        $bid->user_id = $input->user_id; // ДОБАВИЛИ ЗАНЕСЕНИЕ ЮЗЕРА
         $bid->performer_id = null;
         $bid->subcategory_id = (integer)$input->subcategory_id;
         $bid->save();
